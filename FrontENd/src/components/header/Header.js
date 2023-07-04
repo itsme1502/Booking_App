@@ -9,16 +9,18 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./header.css";
 import { DateRange } from "react-date-range";
-import { useState } from "react";
-import "react-date-range/dist/styles.css"; 
-import "react-date-range/dist/theme/default.css";
+import { useContext, useState } from "react";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../../context/SearchContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const Header = ({ type }) => {
   const [destination, setDestination] = useState("");
   const [openDate, setOpenDate] = useState(false);
-  const [date, setDate] = useState([
+  const [dates, setDates] = useState([
     {
       startDate: new Date(),
       endDate: new Date(),
@@ -33,18 +35,23 @@ const Header = ({ type }) => {
   });
 
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+
 
   const handleOption = (name, operation) => {
     setOptions((prev) => {
       return {
         ...prev,
-        [name]: operation === "increase" ? options[name] + 1 : options[name] - 1,
+        [name]: operation === "i" ? options[name] + 1 : options[name] - 1,
       };
     });
   };
 
+  const { dispatch } = useContext(SearchContext);
+
   const handleSearch = () => {
-    navigate("/hotels", { state: { destination, date, options } });
+    dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
+    navigate("/hotels", { state: { destination, dates, options } });
   };
 
   return (
@@ -82,10 +89,10 @@ const Header = ({ type }) => {
               A lifetime of discounts? It's Genius.
             </h1>
             <p className="headerDesc">
-              Get rewarded for your travels - unlock instant savings of 10% or
-              more with a free Booking account on Our App
+              Get rewarded for your travels – unlock instant savings of 10% or
+              more with a free Lamabooking account
             </p>
-            <button className="headerBtn">Sign in / Register</button>
+            {!user && <button className="headerBtn">Sign in / Register</button>}
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
@@ -101,16 +108,16 @@ const Header = ({ type }) => {
                 <span
                   onClick={() => setOpenDate(!openDate)}
                   className="headerSearchText"
-                >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
-                  date[0].endDate,
+                >{`${format(dates[0].startDate, "MM/dd/yyyy")} to ${format(
+                  dates[0].endDate,
                   "MM/dd/yyyy"
                 )}`}</span>
                 {openDate && (
                   <DateRange
                     editableDateInputs={true}
-                    onChange={(item) => setDate([item.selection])}
+                    onChange={(item) => setDates([item.selection])}
                     moveRangeOnFirstSelection={false}
-                    ranges={date}
+                    ranges={dates}
                     className="date"
                     minDate={new Date()}
                   />
@@ -130,7 +137,7 @@ const Header = ({ type }) => {
                         <button
                           disabled={options.adult <= 1}
                           className="optionCounterButton"
-                          onClick={() => handleOption("adult", "decrease")}
+                          onClick={() => handleOption("adult", "d")}
                         >
                           -
                         </button>
@@ -139,7 +146,7 @@ const Header = ({ type }) => {
                         </span>
                         <button
                           className="optionCounterButton"
-                          onClick={() => handleOption("adult", "increase")}
+                          onClick={() => handleOption("adult", "i")}
                         >
                           +
                         </button>
@@ -151,7 +158,7 @@ const Header = ({ type }) => {
                         <button
                           disabled={options.children <= 0}
                           className="optionCounterButton"
-                          onClick={() => handleOption("children", "decrease")}
+                          onClick={() => handleOption("children", "d")}
                         >
                           -
                         </button>
@@ -160,7 +167,7 @@ const Header = ({ type }) => {
                         </span>
                         <button
                           className="optionCounterButton"
-                          onClick={() => handleOption("children", "increase")}
+                          onClick={() => handleOption("children", "i")}
                         >
                           +
                         </button>
@@ -172,7 +179,7 @@ const Header = ({ type }) => {
                         <button
                           disabled={options.room <= 1}
                           className="optionCounterButton"
-                          onClick={() => handleOption("room", "decrease")}
+                          onClick={() => handleOption("room", "d")}
                         >
                           -
                         </button>
@@ -181,7 +188,7 @@ const Header = ({ type }) => {
                         </span>
                         <button
                           className="optionCounterButton"
-                          onClick={() => handleOption("room", "increase")}
+                          onClick={() => handleOption("room", "i")}
                         >
                           +
                         </button>
