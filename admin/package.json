@@ -45,5 +45,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:1502/api"
+  "proxy": "https://booking-app-ig6s.onrender.com/api"
 }
