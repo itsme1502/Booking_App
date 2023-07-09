@@ -6,6 +6,7 @@ import "./register.css";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
+    email : undefined,
     username: undefined,
     password: undefined,
   });
@@ -20,25 +21,23 @@ const Login = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    dispatch({ type: "LOGIN_START" });
+    dispatch({ type: "REGISTER_START" });
     try {
-      const res = await axios.post("/auth/login", credentials);
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-      navigate("/")
+      const res = await axios.post("/auth/register", credentials);
+      dispatch({ type: "REGISTER_SUCCESS", payload: res.data.details });
+      navigate("/login")
     } catch (err) {
-      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+      dispatch({ type: "REGISTER_FAILURE", payload: err.response.data });
     }
   };
  
-
-
   return (
     <div className="register">
       <div className="lContainer">
         <input
           type="text"
-          placeholder="EMAIL"
-          id="username"
+          placeholder="email"
+          id="email"
           onChange={handleChange}
           className="lInput"
         />

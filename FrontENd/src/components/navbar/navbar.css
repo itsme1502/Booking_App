@@ -27,3 +27,12 @@
   color: #003580;
   border-radius: 6px;
 }
+
+.flex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+}
