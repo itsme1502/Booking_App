@@ -22,7 +22,7 @@ const List = () => {
   );
 
   const handleClick = () => {
-    reFetch();
+     reFetch();
   };
 
   return (
@@ -81,6 +81,7 @@ const List = () => {
                     min={1}
                     className="lsOptionInput"
                     placeholder={options.adult}
+                    disabled
                   />
                 </div>
                 <div className="lsOptionItem">

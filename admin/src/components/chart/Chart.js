@@ -9,12 +9,12 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "January", Revenue: 1200 },
-  { name: "February", Revenue: 2100 },
-  { name: "March", Revenue: 800 },
-  { name: "April", Revenue: 1600 },
-  { name: "May", Revenue: 900 },
-  { name: "June", Revenue: 1700 },
+  { name: "January", Total: 1200 },
+  { name: "February", Total: 2100 },
+  { name: "March", Total: 800 },
+  { name: "April", Total: 1600 },
+  { name: "May", Total: 900 },
+  { name: "June", Total: 1700 },
 ];
 
 const Chart = ({ aspect, title }) => {
@@ -29,7 +29,7 @@ const Chart = ({ aspect, title }) => {
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
           <defs>
-            <linearGradient id="Revenue" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
               <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
             </linearGradient>
@@ -39,10 +39,10 @@ const Chart = ({ aspect, title }) => {
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="Revenue"
+            dataKey="Total"
             stroke="#8884d8"
             fillOpacity={1}
-            fill="url(#Revenue)"
+            fill="url(#total)"
           />
         </AreaChart>
       </ResponsiveContainer>

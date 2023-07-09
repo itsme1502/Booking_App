@@ -27,7 +27,7 @@ const Home = () => {
           <Table />
         </div>
       </div>
-      </div>
+    </div>
   );
 };
 
