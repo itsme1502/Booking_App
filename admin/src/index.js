@@ -5,7 +5,8 @@ import { DarkModeContextProvider } from './context/darkModeContext';
 import { AuthContextProvider } from './context/AuthContext';
 import axios from "axios";
 
-axios.defaults.baseURL = "https://booking-app-ig6s.onrender.com/api"
+axios.defaults.baseURL = "http://localhost:1502/api"
+console.log(axios.defaults.baseURL);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

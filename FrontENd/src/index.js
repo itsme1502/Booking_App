@@ -5,7 +5,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { SearchContextProvider } from "./context/SearchContext";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://booking-app-ig6s.onrender.com/api"
+axios.defaults.baseURL = "http://localhost:1502/api"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

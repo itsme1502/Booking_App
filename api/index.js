@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(1502 , () => {
+app.listen( 1502 , () => {
     connect()
     console.log("Connected To Backend.");
 })
